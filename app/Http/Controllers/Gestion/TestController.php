@@ -21,7 +21,8 @@ class TestController extends Controller
     {
         // Mostrar la info del usuario con id=1.
         $user = User::find(1);
-        return view('test',['user' => $user, 'array' => [1,2,3,4,'Marino']]);
+        $array = [1,2,3,4,'Marino'];
+        return view('test.test',compact('user','array'));
     }
 
 
