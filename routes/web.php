@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//Para referenciar otras clases hay que añadir su namespace.
+use App\Http\Controllers\Gestion\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +37,9 @@ Route::get('/custom', function () {
     $msj = "Mensaje desde el servidor *-*";
     return view("custom",['msj' => $msj]);
 });
+
+/**
+ * Ruta para los test con el controlador.
+ * http://example-app.test/test
+ */
+Route::get('/test',[TestController::class,'test'])->name("test");

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Gestion;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 /*
@@ -11,6 +12,19 @@ Controlador para realizar operaciones CRUD en la parte de gestion.
 
 class TestController extends Controller
 {
+
+    /**
+     * 
+     * 
+     */
+    function test()
+    {
+        // Mostrar la info del usuario con id=1.
+        $user = User::find(1);
+        return view('test',['user' => $user]);
+    }
+
+
     /**
      * Display a listing of the resource.
      */
