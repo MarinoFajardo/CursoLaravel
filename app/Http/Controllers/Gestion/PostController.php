@@ -3,29 +3,11 @@
 namespace App\Http\Controllers\Gestion;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-/*
-Controlador para realizar operaciones CRUD en la parte de gestion.
-*/
-
-class TestController extends Controller
+class PostController extends Controller
 {
-
-    /**
-     * 
-     * 
-     */
-    function test()
-    {
-        // Mostrar la info del usuario con id=1.
-        $user = User::find(1);
-        $array = [1,2,3,4,'Marino'];
-        return view('test.test',compact('user','array'));
-    }
-
-
     /**
      * Display a listing of the resource.
      */
@@ -39,7 +21,7 @@ class TestController extends Controller
      */
     public function create()
     {
-        //
+        return view('gestion.post.create');
     }
 
     /**
@@ -47,13 +29,13 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        echo("Store");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
         //
     }
@@ -61,7 +43,7 @@ class TestController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
         //
     }
@@ -69,7 +51,7 @@ class TestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
         //
     }
@@ -77,7 +59,7 @@ class TestController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
         //
     }

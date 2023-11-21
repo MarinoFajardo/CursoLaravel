@@ -8,7 +8,6 @@
 <body>
     
 <h1>Bienvenido</h1>
-<a href="{{ route('contacto') }}">Contacto</a>
 
 </body>
 </html>
