@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Gestion;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\StoreRequest;
+use App\Models\Categoria;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -21,15 +23,19 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('gestion.post.create');
+        $categories = Categoria::pluck('id','title');
+        //dd($categories);
+        return view('gestion.post.create',compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        echo("Store");
+        //echo $request->all();
+        $data = array_merge($request->all(),['image' => '']);
+        Post::create($data);
     }
 
     /**
