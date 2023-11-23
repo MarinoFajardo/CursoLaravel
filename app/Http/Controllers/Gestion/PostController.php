@@ -15,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::paginate(5);
+        return view('gestion.post.index',compact('posts'));
     }
 
     /**
@@ -34,8 +35,7 @@ class PostController extends Controller
     public function store(StoreRequest $request)
     {
         //echo $request->all();
-        $data = array_merge($request->all(),['image' => '']);
-        Post::create($data);
+        Post::create($request->validated());
     }
 
     /**

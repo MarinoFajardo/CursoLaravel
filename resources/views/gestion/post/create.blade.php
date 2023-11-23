@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Crear Post</title>
-</head>
-<body>
+@extends('gestion.layout')
 
+@section('content')
     <h1>Crear Post</h1>
 
+    {{-- Incluir el fragmento de los errores --}}
+    @include('fragments.error')
+
+    {{-- Formulario para crear un post --}}
     <form action="{{route('post.store')}}" method="post">
         @csrf
         <label for="Titulo">Título</label>
@@ -43,6 +40,4 @@
 
         <button type="submit">Enviar</button>
     </form>
-
-</body>
-</html>
+@endsection
