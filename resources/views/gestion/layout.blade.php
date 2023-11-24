@@ -7,6 +7,13 @@
     <title>Gestión</title>
 </head>
 <body>
+    @if (session('status'))
+        <script>
+            window.onload = function(){
+                alert("{{session('status')}}")
+            };
+        </script>
+    @endif
     @yield('content')
 </body>
 </html>

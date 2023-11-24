@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Gestion;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\PutRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Models\Categoria;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(5);
+        $posts = Post::paginate(2);
         return view('gestion.post.index',compact('posts'));
     }
 
@@ -25,8 +25,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Categoria::pluck('id','title');
-        //dd($categories);
-        return view('gestion.post.create',compact('categories'));
+        $post = new Post();
+        return view('gestion.post.create',compact('categories','post'));
     }
 
     /**
@@ -34,8 +34,8 @@ class PostController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        //echo $request->all();
         Post::create($request->validated());
+        return to_route('post.index')->with('status',"Registro creado.");
     }
 
     /**
@@ -43,7 +43,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('gestion.post.show',compact('post'));
     }
 
     /**
@@ -51,15 +51,17 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Categoria::pluck('id','title');
+        return view('gestion.post.edit',compact('categories','post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PutRequest $request, Post $post)
     {
-        //
+        $post->update($request->validated());
+        return to_route('post.index')->with('status',"Registro actualizado.");
     }
 
     /**
@@ -67,6 +69,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return to_route('post.index')->with('status',"Registro eliminado.");
     }
 }
