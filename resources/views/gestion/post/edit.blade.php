@@ -7,7 +7,7 @@
     @include('fragments.error')
 
     {{-- Formulario para crear un post --}}
-    <form action="{{route('post.update',$post->id)}}" method="post">
+    <form action="{{route('post.update',$post->id)}}" method="post" enctype="multipart/form-data">
         @method("PUT")
         @include('fragments._form')
     </form>

@@ -31,7 +31,7 @@
             </td>
 
             <td>
-                Categoría
+                {{$p->categoria->title}}
             </td>
 
             <td>
