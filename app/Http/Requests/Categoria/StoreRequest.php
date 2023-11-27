@@ -1,18 +1,25 @@
 <?php
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Categoria;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
-class PutRequest extends FormRequest
+
+class StoreRequest extends FormRequest
 {
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => Str::slug($this->title)
+        ]);
+    }
 
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        //Siempre a true para que no rechace la petición.
         return true;
     }
 
@@ -25,14 +32,7 @@ class PutRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:500',
-            'slug' => 'required|min:5|max:500|unique:posts,slug,'.$this->route("post")->id,
-            'content' => 'required|min:7',
-            'categoria_id' => 'required|integer',
-            'description' => 'required|min:7',
-            'posted' => 'required',
-            "image" => "required|mimes:jpeg,jpg,png|max:10240"
+            'slug' => 'required|min:5|max:500|unique:categorias'
         ];
     }
-
-    
 }

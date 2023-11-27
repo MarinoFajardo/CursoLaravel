@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Gestion\CategoriaController;
 use Illuminate\Support\Facades\Route;
 //Para referenciar otras clases hay que añadir su namespace.
 use App\Http\Controllers\Gestion\PostController;
@@ -23,9 +24,14 @@ Route::get('/', function () {
 });
 
 /**
- * Rutas para el controlador de gestión.
+ * Rutas para el controlador Post de gestión.
  */
 Route::resource('post', PostController::class);
+
+/**
+ * Rutas para el controlador Categorías de Gestión.
+ */
+Route::resource('categoria',CategoriaController::class);
 
 /*
 Haciendo la ruta anterior no es necesario añadir todo esto pero se puede 
