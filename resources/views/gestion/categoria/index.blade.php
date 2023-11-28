@@ -2,12 +2,15 @@
 @section('content')
 
     {{-- Acción de crear un post --}}
-    <a href="{{ route("categoria.create") }}">Crear</a>
-    <table>
+    <a class="btn btn-success my-3" href="{{ route("categoria.create") }}">Crear</a>
+    <table class="table mb-3">
         <thead>
             <tr>
                 <th>
                     Título
+                </th>
+                <th>
+                    Acciones
                 </th>
     
             </tr>
@@ -20,12 +23,12 @@
             </td>
 
             <td>
-                <a href="{{ route("categoria.edit",$c) }}">Editar</a>
-                <a href="{{ route("categoria.show",$c) }}">Ver</a>
+                <a class="btn btn-primary my-2" href="{{ route("categoria.edit",$c) }}">Editar</a>
+                <a class="btn btn-primary my-2" href="{{ route("categoria.show",$c) }}">Ver</a>
                 <form action="{{route("categoria.destroy",$c)}}" method="POST">
                     @method("DELETE")
                     @csrf
-                    <button type="submit">Eliminar</button>
+                    <button class="btn btn-danger" type="submit">Eliminar</button>
                 </form>
             </td>
         </tr>

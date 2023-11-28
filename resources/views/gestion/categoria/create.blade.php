@@ -1,7 +1,7 @@
 @extends('gestion.layout')
 
 @section('content')
-    <h1>Crear Post</h1>
+    <h1 class="title">Crear Post</h1>
 
     {{-- Incluir el fragmento de los errores --}}
     @include('fragments.error')
