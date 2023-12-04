@@ -72,6 +72,10 @@ Estilo para las cartas.
     @apply bg-white
 }
 
+.card-red{
+    @apply bg-red-100
+}
+
 /***************************************************************/
 
 /*

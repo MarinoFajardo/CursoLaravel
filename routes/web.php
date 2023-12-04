@@ -3,6 +3,7 @@
 use App\Http\Controllers\Gestion\CategoriaController;
 use App\Http\Controllers\Gestion\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Web\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,13 @@ Route::group(['prefix' => 'gestion', 'middleware' => ['auth','admin']],function(
         'categoria' => CategoriaController::class
     ]);
     
+});
+
+Route::group(['prefix' => 'blog'],function(){
+    Route::controller(BlogController::class)->group(function(){
+        route::get('/',"index")->name('web.blog.index');
+        Route::get('/{post}',"show")->name('web.blog.show');
+    });
 });
 
 require __DIR__.'/auth.php';
