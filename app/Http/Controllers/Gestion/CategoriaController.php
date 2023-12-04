@@ -16,7 +16,7 @@ class CategoriaController extends Controller
      */
     public function index():View
     {
-        $categorias = Categoria::paginate(2);
+        $categorias = Categoria::paginate(7);
         return view('gestion.categoria.index',compact('categorias'));
     }
 
