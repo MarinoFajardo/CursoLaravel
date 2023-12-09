@@ -20,11 +20,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::resource('categoria',CategoriaController::class)->except(["create","edit"]);
+    Route::resource('post',PostController::class)->except(["create","edit"]);
+});
+
 Route::get('post/all',[PostController::class,'all']);
 Route::get('post/slug/{slug}',[PostController::class,'slug']);
 Route::get('categoria/all',[CategoriaController::class,'all']);
 Route::get('categoria/{categorium}/post',[PostController::class,'posts']);
 Route::get('categoria/slug/{slug}',[CategoriaController::class,'slug']);
 
-Route::resource('categoria',CategoriaController::class)->except(["create","edit"]);
-Route::resource('post',PostController::class)->except(["create","edit"]);
