@@ -7,7 +7,7 @@
     @include('fragments.error')
 
     {{-- Formulario para crear un post --}}
-    <form action="{{route('categoria.update',$categori->id)}}" method="post">
+    <form action="{{route('categoria.update',$categorium->id)}}" method="post">
         @method("PUT")
         @include('fragments._form2')
     </form>
