@@ -79,10 +79,23 @@ Estilo para las cartas.
 /***************************************************************/
 
 /*
-Estilo para los tittulos
+Estilo para los titulos
 */
 .title {
-    @apply font-bold text-xl text-center 
+    @apply font-bold text-3xl text-center my-5
+}
+
+h1{
+    @apply font-bold text-3xl text-center my-5
+}
+
+/***************************************************************/
+
+/*
+Cambios al estilo de Oruga para el modal
+*/
+:root{
+    --oruga-modal-content-padding:0
 }
 
 /***************************************************************/

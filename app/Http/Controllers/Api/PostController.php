@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::paginate(10));
+        return response()->json(Post::with('categoria')->paginate(10));
     }
 
     public function all()
