@@ -98,4 +98,11 @@ Cambios al estilo de Oruga para el modal
     --oruga-modal-content-padding:0
 }
 
+.o-field_message{
+    @apply text-red-800
+}
+
+.ex-center {
+    text-align: center;
+}
 /***************************************************************/

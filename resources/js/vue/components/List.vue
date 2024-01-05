@@ -56,9 +56,7 @@
         size="small"
         :simple="false"
         :rounded="true"
-        :per-page="posts.per_page"
-        :icon-prev="prevIcon"
-        :icon-next="nextIcon">
+        :per-page="posts.per_page">
     </o-pagination>
     
     </div>

@@ -30,7 +30,46 @@
                     <option value="not">No</option>
                 </o-select>
             </o-field>
+
+            <!--
+            <div class="flex gap-2" v-if="post">
+                <o-field :message="fileError">
+                    <o-upload v-model="file">
+                        <o-button tag="a" variant="primary">
+                            <o-icon icon="upload"></o-icon>
+                            <span>Click para cargar</span>
+                        </o-button>
+                    </o-upload>
+                </o-field>
+                <o-button icon-left="upload" @Click="upload()">
+                    Subir
+                </o-button>
+            </div>
+            -->
+            <o-field>
+                <o-upload v-model="dropFiles" multiple drag-drop>
+                    <section class="ex-center">
+                        <p>
+                            <o-icon icon="upload"/>
+                        </p>
+                        <p>Drop your files here or click to upload</p>
+                    </section>
+                </o-upload>
+            </o-field> 
+            <div class="tags">
+                <span v-for="(file, index) in dropFiles" :key="index">
+                    {{ file.name }}
+                    <o-button
+                        icon-left="times"
+                        size="small"
+                        native-type="button">
+                    </o-button>
+                </span>
+            </div>
+
         </div>
+
+        <br/>
 
         <o-button variant="primary" native-type="submit">
             Enviar
@@ -61,7 +100,10 @@ export default {
                 categoria_id:"",
                 posted:""
             },
-            post:""
+            post:"",
+            file:null,
+            fileError:"",
+            dropFiles:[],
         }
     },
     async mounted() {
@@ -82,6 +124,22 @@ export default {
         getCategoria(){
             this.$axios.get("/api/categoria/all").then(res =>{
                 this.categorias = res.data
+            })
+        },
+        upload(){
+            //return console.log(this.file)
+            const formData = new FormData()
+            formData.append("image",this.file)
+            this.$axios.post("/api/post/upload/"+this.post.id,formData,{
+                headers:{
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                this.fileError = error.response.data.message;
             })
         },
         async getPost(){
@@ -154,5 +212,25 @@ export default {
           })
         }
     },
+    watch:{
+        dropFiles:{
+            handler(val){
+                const formData = new FormData()
+                formData.append("image",val[val.length - 1])
+                this.$axios.post("/api/post/upload/"+this.post.id,formData,{
+                    headers:{
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((error) => {
+                    this.fileError = error.response.data.message;
+                })
+            },
+            deep:true
+        }
+    }
 }
 </script>
