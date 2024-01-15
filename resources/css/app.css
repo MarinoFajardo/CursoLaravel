@@ -86,7 +86,7 @@ Estilo para los titulos
 }
 
 h1{
-    @apply font-bold text-3xl text-center my-5
+    @apply font-bold text-3xl my-3
 }
 
 /***************************************************************/

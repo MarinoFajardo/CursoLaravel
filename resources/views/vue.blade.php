@@ -28,11 +28,9 @@
         </script>
     @endif
 
-    <div class="container">
         <div id="app">
 
         </div>
-    </div>
     @vite('resources/js/vue/main.js')
 </body>
 </html>
