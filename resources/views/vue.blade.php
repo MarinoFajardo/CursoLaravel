@@ -7,6 +7,27 @@
     <title>Document</title>
 </head>
 <body>
+
+    @if (auth()->check())
+        <script>
+            window.Laravel = {!!
+                    json_encode([
+                        'isloggedin' => true,
+                        'user' => auth()->user(),
+                        'token' => session('token')
+                    ])
+                !!}
+        </script>
+    @else
+        <script>
+            window.Laravel = {!!
+                    json_encode([
+                        'isloggedin' => false
+                    ])
+                !!}
+        </script>
+    @endif
+
     <div class="container">
         <div id="app">
 

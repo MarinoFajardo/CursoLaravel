@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CategoriaController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,15 +22,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
-
+    Route::get('categoria/all',[CategoriaController::class,'all']);
+    Route::resource('categoria',CategoriaController::class)->except(["create","edit"]);
+    Route::resource('post',PostController::class)->except(["create","edit"]);
+    
+    Route::get('post/all',[PostController::class,'all']);
+    Route::get('post/slug/{slug}',[PostController::class,'slug']);
+    Route::post('post/upload/{post}',[PostController::class,'upload']);
+    Route::get('categoria/{categorium}/post',[PostController::class,'posts']);
+    Route::get('categoria/slug/{slug}',[CategoriaController::class,'slug']);
 });
-Route::get('categoria/all',[CategoriaController::class,'all']);
-Route::resource('categoria',CategoriaController::class)->except(["create","edit"]);
-Route::resource('post',PostController::class)->except(["create","edit"]);
 
-Route::get('post/all',[PostController::class,'all']);
-Route::get('post/slug/{slug}',[PostController::class,'slug']);
-Route::post('post/upload/{post}',[PostController::class,'upload']);
-Route::get('categoria/{categorium}/post',[PostController::class,'posts']);
-Route::get('categoria/slug/{slug}',[CategoriaController::class,'slug']);
-
+//usuarios
+Route::post('user/login',[UserController::class,'login']);
+Route::post('user/logout',[UserController::class,'logout']);

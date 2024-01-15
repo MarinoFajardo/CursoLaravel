@@ -11,6 +11,7 @@ import '@oruga-ui/oruga-next/dist/oruga'
 
 import "@mdi/font/css/materialdesignicons.min.css" 
 
+//import { VueCookies } from 'vue3-cookies'
 import axios from 'axios'
 import router from './router'
 

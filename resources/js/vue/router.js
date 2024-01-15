@@ -11,6 +11,11 @@ const routes = [
         name:'save',
         path:'/vue/save/:slug?',
         component: () => import('./components/Save.vue')
+    },
+    {
+        name:'login',
+        path:'/vue/login',
+        component: () => import('./components/Auth/login.vue')
     }
 ]
 
