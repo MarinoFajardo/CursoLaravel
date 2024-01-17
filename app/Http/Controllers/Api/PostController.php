@@ -8,6 +8,7 @@ use App\Http\Requests\Post\StoreRequest;
 use App\Models\Categoria;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
@@ -21,7 +22,27 @@ class PostController extends Controller
 
     public function all()
     {
-        return response()->json(Post::get());
+        /**
+         * 1. Comprobar caché
+         * 2. Caché existe, devolver caché.
+         * 3. Caché no existe, consulta BD - caché y retornar.
+         */
+
+        /*
+        if(Cache::has('post_all')){
+            return response()->json(Cache::get('post_all'));
+        }else{
+            $posts =  response()->json(Post::get());
+            Cache::put('post_all',$posts);
+            return response()->json($posts);
+
+        }
+        */
+
+        /////------ Segundo Método ---------///////
+        return response()->json(Cache::remember('post_all2',now()->addMinutes(10),function(){
+            return Post::all();
+        }));
     }
 
     /**

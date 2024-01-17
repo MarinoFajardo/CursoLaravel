@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Gestion;
 
+use App\Models\Post;
+use App\Models\Categoria;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\Post\PutRequest;
 use App\Http\Requests\Post\StoreRequest;
-use App\Models\Categoria;
-use App\Models\Post;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 
 class PostController extends Controller
 {
@@ -46,9 +47,19 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post):View
+    public function show(Post $post): string|View
     {
-        return view('gestion.post.show',compact('post'));
+        /**
+         * Mantener los post en caché
+         */
+
+        if(Cache::has('post_show_'.$post->id)){
+            return Cache::get('post_show_'.$post->id);
+        }else{
+            $cacheView = view('gestion.post.show',compact('post'))->render();
+            Cache::put('post_show_'.$post->id,$cacheView);
+            return $cacheView;
+        }
     }
 
     /**
