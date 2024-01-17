@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum("posted",['yes','not']);
             $table->timestamps();
             $table->foreignId('categoria_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 

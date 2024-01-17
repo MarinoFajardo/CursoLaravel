@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\Post\PutRequest;
 use App\Http\Requests\Post\StoreRequest;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -19,6 +20,9 @@ class PostController extends Controller
     public function index():View
     {
         $posts = Post::paginate(7);
+        if(!Gate::allows('view',$posts[0])){
+            abort(403);
+        }
         return view('gestion.post.index',compact('posts'));
     }
 
@@ -27,6 +31,9 @@ class PostController extends Controller
      */
     public function create():View
     {
+        if(!Gate::allows('create')){
+            abort(403);
+        }
         $categories = Categoria::pluck('id','title');
         $post = new Post();
         return view('gestion.post.create',compact('categories','post'));
@@ -53,6 +60,10 @@ class PostController extends Controller
          * Mantener los post en caché
          */
 
+         if(!Gate::allows('view',$post)){
+            abort(403);
+        }
+
         if(Cache::has('post_show_'.$post->id)){
             return Cache::get('post_show_'.$post->id);
         }else{
@@ -67,6 +78,14 @@ class PostController extends Controller
      */
     public function edit(Post $post):View
     {
+        //if(!Gate::allows('update-post',$post)){
+            //return abort(403);
+        //}
+
+        if(!Gate::allows('update',$post)){
+            abort(403);
+        }
+
         $categories = Categoria::pluck('id','title');
         return view('gestion.post.edit',compact('categories','post'));
     }
@@ -76,6 +95,9 @@ class PostController extends Controller
      */
     public function update(PutRequest $request, Post $post):RedirectResponse
     {
+        if(!Gate::allows('update',$post)){
+            return abort(403);
+        }
         $data = $request->validated();
         $data["image"] = $filename = time().".".$data["image"]->extension();
         $request->image->move(public_path("image"),$filename);
@@ -88,6 +110,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post):RedirectResponse
     {
+        if(!Gate::allows('delete',$post)){
+            abort(403);
+        }
         $post->delete();
         return to_route('post.index')->with('status',"Registro eliminado.");
     }
